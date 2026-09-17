@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ma Station — trouve la meilleure station pour TON véhicule</title>
+  <meta name="description" content="Comparateur de stations carburant et de recharge électrique qui calcule le coût réel du détour, selon ta consommation ou ta puissance de charge." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>⛽ Ma Station</h1>
+    <p class="tagline">La meilleure station pour <strong>ton</strong> véhicule, pas juste la moins chère.</p>
+  </header>
+
+  <main>
+    <!-- Étape 1 : choix du type de véhicule -->
+    <section id="step-vehicle-type" class="step active">
+      <h2>1. Quel est ton véhicule ?</h2>
+      <div class="choice-grid">
+        <button class="choice-card" id="choice-thermique" type="button">
+          <span class="choice-icon">⛽</span>
+          <span class="choice-label">Thermique</span>
+        </button>
+        <button class="choice-card" id="choice-electrique" type="button">
+          <span class="choice-icon">🔌</span>
+          <span class="choice-label">Électrique</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Étape 2a : formulaire thermique -->
+    <section id="step-thermique" class="step">
+      <h2>2. Ton véhicule thermique</h2>
+      <form id="form-thermique">
+        <label for="carburant">Carburant</label>
+        <select id="carburant" required>
+          <option value="sp95_prix">SP95</option>
+          <option value="gazole_prix">Gazole</option>
+          <option value="e10_prix">E10</option>
+          <option value="sp98_prix">SP98</option>
+          <option value="e85_prix">E85</option>
+          <option value="gplc_prix">GPLc</option>
+        </select>
+
+        <label for="conso">Consommation moyenne (L/100km)</label>
+        <input
+          type="number"
+          id="conso"
+          list="conso-presets"
+          min="1"
+          max="30"
+          step="0.1"
+          placeholder="ex : 6.5"
+          required
+        />
+        <datalist id="conso-presets">
+          <option value="4.5" label="Citadine essence sobre"></option>
+          <option value="5.5" label="Citadine essence"></option>
+          <option value="6.5" label="Berline compacte"></option>
+          <option value="4.0" label="Citadine diesel"></option>
+          <option value="5.0" label="Berline diesel"></option>
+          <option value="8.0" label="SUV / break"></option>
+          <option value="10.0" label="Utilitaire / gros SUV"></option>
+        </datalist>
+
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" data-back>← Retour</button>
+          <button type="submit" class="btn-primary">Trouver les meilleures stations</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Étape 2b : formulaire électrique (bientôt disponible) -->
+    <section id="step-electrique" class="step">
+      <h2>2. Ton véhicule électrique</h2>
+      <div class="notice">
+        <p>
+          🚧 La recherche de bornes de recharge arrive bientôt. Le schéma des
+          données IRVE (bornes de recharge) est en cours de vérification
+          avant de brancher le calcul dessus.
+        </p>
+        <p>En attendant, tu peux essayer la version thermique !</p>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" data-back>← Retour</button>
+      </div>
+    </section>
+
+    <!-- Étape 3 : chargement -->
+    <section id="step-loading" class="step">
+      <div class="loader"></div>
+      <p id="loading-message">Localisation en cours…</p>
+    </section>
+
+    <!-- Étape 4 : erreur -->
+    <section id="step-error" class="step">
+      <p id="error-message" class="error-text"></p>
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" data-back>← Retour</button>
+      </div>
+    </section>
+
+    <!-- Étape 5 : résultats -->
+    <section id="step-results" class="step">
+      <h2>Les 3 meilleures stations pour toi</h2>
+      <p id="results-subtitle" class="results-subtitle"></p>
+      <ol id="results-list" class="results-list"></ol>
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" data-back>← Nouvelle recherche</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Données carburants : <a href="https://data.economie.gouv.fr/explore/dataset/prix-des-carburants-en-france-flux-instantane-v2/" target="_blank" rel="noopener">data.economie.gouv.fr</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
